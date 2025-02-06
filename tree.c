@@ -2,45 +2,54 @@
 #include<stdlib.h>
 
 typedef struct Node{
-  struct * tree leftChild;
+  struct Node * leftChild;
   int data;
-  struct * tree rightChild; 
+  struct Node* rightChild; 
 }Tree;
-*root = NULL;
+
+ Tree *root = NULL;
 
 
-void insert(Tree * t, int key){
-  Tree * r,*p;
+void insert(int key){
+
+  Tree *t = root;
+  Tree *r  = NULL, *p;
+
   if(root == NULL){
     p = (Tree*)malloc(sizeof(Tree));
     p->data = key;
     p->leftChild = NULL;
     p->rightChild = NULL;
     root = p;
-    return;
+    return;  
   }
 
 while(t!=NULL){
   r = t;
-  if(t == key){
-    return;
+  if(key < t->data){
+    t =t->leftChild;
   }
-  else if(key > t){
+  else if(key > t->data){
     t = t->rightChild;
-  }
-  else t = t->leftChild;
+  }else
+  return;
 
 }
 
-if(r->data > key) r-leftChild = p;
-else r-rightChild = p;
+p = (Tree*)malloc(sizeof(Tree));
+  p->data = key;
+  p->leftChild = NULL;
+  p->rightChild = NULL;
+
+if(r->data > key) r->leftChild = p;
+else r->rightChild = p;
 
 }
 
 void inOrder(Tree *t){
   if(t){
     inOrder(t->leftChild);
-    printf("%d", t->data);
+    printf("%d ", t->data);
     inOrder(t->rightChild);
   }
 }
@@ -57,8 +66,8 @@ int main(){
   insert(5);
   insert(20);
   insert(8);
-
-  
-
+ printf("In-order Traversal: ");
+inOrder(root);
+printf("\n");
   return 0;
 }
